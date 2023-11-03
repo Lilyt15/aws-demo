@@ -2,28 +2,28 @@
 #
 # Define your name and the directory 
  clear
-read -p "Enter your name: " yourName
+read -p "Enter your name: " Name
 directory="/home/$USER"
 
 # Find the maximum number in the existing files.
-maxNumber=0
-for file in "$directory"/"$yourName"*; do
+MAX=0
+for file in "$directory"/"$Name"*; do
     filename="${file##*/}" # Extract the filename
-    fileNumber="${filename#"${yourName}"}" # Remove yourName from the filename
+    fileNumber="${filename#"${Name}"}" # Remove yourName from the filename
     fileNumber="${fileNumber%.*}" # Remove the extension, if any
 
     # Check if the fileNumber is a valid positive integer
     if [[ $fileNumber =~ ^[0-9]+$ ]]; then
-        if ((fileNumber > maxNumber)); then
-            maxNumber=$fileNumber
+        if ((fileNumber > MAX)); then
+            MAX=$fileNumber
         fi
     fi
 done
 
 # Create the next batch of 25 files
 for ((i = 1; i <= 25; i++)); do
-    ((maxNumber++))
-    filename="$yourName$maxNumber"
+    ((MAX++))
+    filename="$Name$MAX"
     touch "$directory/$filename"
 done
-echo "Hello, $yourName!"
+echo "Hello, $Name!"
